@@ -1,0 +1,51 @@
+@(message: String)
+@import play.i18n.Lang
+
+@main("Welcome to Play 2.0") {
+
+  <h2>Parameters</h2>
+  <ul>
+    <li><a href="@routes.Users.showAll()">All Users</a></li>
+    <li><a href="@routes.Users.show(1234)">Show Users</a></li>
+    <li><a href="@routes.Users.userImage("joe", 32, 32)">User Image</a></li>
+  </ul>
+
+  <h2>Values</h2>
+  <ul>
+    @* Booleans in reverse routes don't work *@
+    <li><a href="@routes.Users.setBoolPreference("receiveEmails", true)">Boolean Parameter</a></li>
+    <li><a href="@routes.Users.setLongPreference("referredByUserId", 1234567)">Long Parameter</a></li>
+    <li><a href="@routes.Users.setIntPreference("loginCounter", 10)">Int Parameter</a></li>
+  </ul>
+
+  <h2>JavaScript router</h2>
+  <a href="#" class="deleteUser" data-userid="1234">Delete User</a>
+  <script src="@routes.Application.jsRoutes()" type="text/javascript"></script>
+  <script>
+    $('.deleteUser').click(function() {
+      var userId = $(this).data("userid");
+      jsRoutes.controllers.Users.delete(userId).ajax({
+        success: function(data) {
+          alert(data);
+        },
+        error: function(data) {
+          alert("error!");
+        }
+      });
+    })
+  </script>
+
+  <h2>Localized Routes</h2>
+  <ul>
+    <li class="nav-header">Language as String</li>
+  @for(language <- Application.languages) {
+    <li><a href="@routes.Help.show(language)">Help in @language</a></li>
+  }
+  <li class="nav-header">Lang Binder</li>
+  @for(language <- Application.languages) {
+    @defining(Lang.forCode(language)) { lang =>
+      <li><a href="@routes.Faq.show(lang)">FAQ in @language</a></li>
+    }
+  }
+  </ul>
+}

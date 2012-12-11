@@ -1,0 +1,42 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                            controllers.Application.index(ref: Option[String] ?= None)
+
+# User CRUD
+GET     /users                       controllers.Users.showAll(sortBy: String ?= "lastName", sortDir: String ?= "asc", page: Int ?= 1)
+GET     /users/                      controllers.Default.redirect(to = "/users")
+GET     /users/:id                   controllers.Users.show(id: Long)
+POST    /users                       controllers.Users.create()
+PUT     /users/:id                   controllers.Users.update(id: Long)
+DELETE  /users/:id                   controllers.Users.delete(id: Long)
+
+# Regular Expressions (test it with /users/joe/image/200x20)
+GET     /users/:username/image/$width<[0-9]+>x$height<[0-9]+>  controllers.Users.userImage(username, width: Int, height: Int)
+# Fixed parameters
+GET     /users/:username/image/profile-image                   controllers.Users.userImage(username, width: Int = 128, height: Int = 128)
+
+# Values - 2.1 will support Float, Double, List and UUID
+# Booleans only work as query parameters
+GET     /prefs/bool/:key             controllers.Users.setBoolPreference(key: String, value: Boolean)
+GET     /prefs/long/:key/:value      controllers.Users.setLongPreference(key, value: Long)
+GET     /prefs/int/:key/:value       controllers.Users.setIntPreference(key, value: Int)
+#GET     /prefs/double/:key/:value    controllers.Users.setDoublePreference(key, value: Double)
+#GET     /prefs/float/:key/:value     controllers.Users.setFloatPreference(key, value: Float)
+#GET     /prefs/uuid/:key/:value      controllers.Users.setUUIDPreference(key, value: UUID)
+
+# Localized + SEO routes
+GET     /de/hilfe                    controllers.Help.show(language = "de")
+GET     /fr/aide                     controllers.Help.show(language = "fr")
+GET     /$language<[a-z]{2}>/help    controllers.Help.show(language: String)
+
+# Binders
+# Lanuage only, e.g. /en/faq
+GET     /$language<[a-z]{2}>/faq              controllers.Faq.show(language: Lang)
+# Language and country, e.g. /en-US/faq
+GET     /$language<[a-z]{2}-[A-Z]{2}>/faq     controllers.Faq.show(language: Lang)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file                controllers.Assets.at(path="/public", file)

@@ -1,0 +1,11 @@
+@(messageKey: String, maybeRoute: Option[String => Call] = None)(implicit request: RequestHeader, lang: Lang)
+<p>@Messages(messageKey)</p>
+
+@maybeRoute.map { route =>
+  Also available in other languages:
+  <ul>
+  @for(language <- Application.languages.filter(_ != lang.language)) {
+    <li><a href="@route(language)">@language</a></li>
+  }
+  </ul>
+}
