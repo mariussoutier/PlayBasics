@@ -1,0 +1,13 @@
+@(userForm: Form[User])
+@import helper._
+
+@main("User Profile") {
+
+  <h1>Edit User Profile</h1>
+
+  @form(action = routes.Application.updateProfile()) {
+    @inputText(field = userForm("firstName"), 'id -> "wurst")
+    @inputText(field = userForm("lastName"))
+    <button>Update User</button>
+  }
+}

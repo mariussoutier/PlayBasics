@@ -1,0 +1,4 @@
+@(users: List[User], useHeaders: Boolean = false)
+@if(useHeaders) {E-Mail;First Name;Last Name}@for(user <- users) {
+@user.email;@user.firstName;@user.lastName
+}

@@ -1,0 +1,15 @@
+@**
+** Public user profile, not editable.
+**@
+@(user: User)
+@** The models package is imported automatically, so we can refer to User directly **@
+
+@main("User Profile") {
+  @** Use @defining to refer to a value multiple times **@
+  @defining(user.firstName + " " + user.lastName) { fullName =>
+    <h2>@fullName</h2>
+    @users.summary(user)
+
+    <a href="@routes.Application.editProfile()">Edit @fullName</a>
+  }
+}

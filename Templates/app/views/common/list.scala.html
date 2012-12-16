@@ -1,0 +1,7 @@
+@(items: List[_])(row: (Any, Int, Boolean) => Html)
+
+<div class="list">
+@{(0 until items.length).map { index =>
+  row(items(index), index, index % 2 == 0)
+}}
+</div>

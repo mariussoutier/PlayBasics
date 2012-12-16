@@ -1,0 +1,28 @@
+@(users: List[User])
+
+@footer = {
+  This template tutorial was written by Marius Soutier <code>@@mariussoutier</code>
+}
+
+@main("User Management", footer = footer, nav = "users") {
+  <h1>User Management</h1>
+
+  @if(users.isEmpty) {
+    <em>-- No Users Found. --</em>
+  } else {
+    <table>
+    @common.list(users) { (obj, index, even) =>
+      @obj match {
+        case user: User => {
+          <tr>
+            <td>@user.lastName</td>
+            <td>@user.firstName</td>
+            <td>@user.email</td>
+            <td><a href="@routes.Application.editProfile()">Edit</a></td>
+          </tr>
+        }
+      }
+    }
+    </table>
+  }
+}
