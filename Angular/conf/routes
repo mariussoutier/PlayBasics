@@ -1,0 +1,20 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                       controllers.Application.index
+
+# JavaScript routes
+GET     /jsroutes               controllers.Application.jsRoutes()
+# AJAX routes
+POST    /login                  controllers.Application.login()
+GET     /users/:id              controllers.Users.user(id: Long)
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /lib/require.js                 controllers.WebJarAssets.requirejs
+### Enable www.WebJars.org based resources to be returned
+GET     /webjars/*file                  controllers.WebJarAssets.at(file)
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

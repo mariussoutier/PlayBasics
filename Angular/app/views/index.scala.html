@@ -1,0 +1,26 @@
+@()<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+    <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script data-main="@routes.Assets.at("javascripts/main.js")" src="@routes.WebJarAssets.requirejs" type="text/javascript"></script>
+  </head>
+  <body>
+    <div data-ng-controller="LoginCtrl" data-ng-cloak>
+      <div data-ng-switch="loggedIn">
+        <div data-ng-switch-when="false">
+          <form>
+            <input type="text" data-ng-model="credentials.user" placeholder="Username" /><br />
+            <input type="text" data-ng-model="credentials.password" placeholder="Password" /><br />
+            <button data-ng-click="login(credentials)">Log In</button>
+          </form>
+        </div>
+        <div data-ng-switch-when="true">
+          Welcome, {{user.firstName}} {{user.lastName}}!
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
