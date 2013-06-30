@@ -12,7 +12,7 @@ object Application extends Controller {
 
   def jsRoutes(varName: String = "jsRoutes") = Action { implicit request =>
     Ok(
-      Routes.javascriptRouter("jsRoutes")(
+      Routes.javascriptRouter(varName)(
         routes.javascript.Application.login,
         routes.javascript.Users.user
       )
