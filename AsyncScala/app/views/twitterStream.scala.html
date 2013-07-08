@@ -1,0 +1,52 @@
+@()(implicit request: RequestHeader)
+
+@main("Stream") {
+  <h1>What's happening right now?</h1>
+
+  <form id="form">
+    <input type="text" name="track" id="track" />
+    <input type="submit" value="Stream!" />
+  </form>
+
+  <ul id="tweets"></ul>
+
+  @helper.javascriptRouter("jsRoutes")(
+    routes.javascript.Twitter.streamForKeyword
+  )
+
+  <script type="text/javascript">
+  $(function() {
+    var source = undefined;
+    $("#track").focus();
+
+    $("#form").submit(function() {
+      if (source !== undefined)
+        source.close();
+
+      var track = $("#track").val();
+      source = new EventSource(jsRoutes.controllers.Twitter.streamForKeyword(track).url);
+
+      source.onmessage = function(e) {
+        var tweet = jQuery.parseJSON(e.data);
+        var fullName = tweet.user.name || "unknown";
+        var user = tweet.user.screen_name;
+        var text = tweet.text;
+        var display = fullName + "(@@" + user + ") - " + text;
+        $('<li />').text(display).appendTo('#tweets');
+      };
+
+      source.onopen = function(e) {
+        console.log("Connection opened");
+      };
+
+      source.onerror = function(e) {
+        if (e.target.readyState == EventSource.CLOSED) {
+          console.log("Connection closed");
+        }
+      };
+
+      return false;
+    });
+  })
+  </script>
+}

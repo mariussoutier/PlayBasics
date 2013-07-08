@@ -1,0 +1,28 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+
+# Send (user,password) to receive token
+POST    /login                      controllers.Application.login()
+# Invalidate token
+POST    /logout                     controllers.Application.logout()
+
+# Check if token is valid and get user id
+GET    /ping                        controllers.Application.ping()
+
+# Get user data
+GET    /my/user                     controllers.Users.myUserInfo()
+GET    /users/:id                   controllers.Users.getUser(id: Long)
+
+
+### Obtain require.js with built-in knowledge of how webjars resources can be resolved
+GET    /lib/require.js              controllers.WebJarAssets.requirejs
+
+### Enable www.WebJars.org based resources to be returned
+GET    /webjars/*file               controllers.WebJarAssets.at(file)
+
+### Map static resources from the /public folder to the /assets URL path
+GET    /assets/*file               controllers.Assets.at(path="/public", file)

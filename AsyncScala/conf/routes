@@ -1,0 +1,18 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+#GET    /
+
+GET     /promises                        controllers.Promises.index
+GET     /promises/examples               controllers.Promises.examples
+GET     /promises/async                  controllers.Promises.asyncAction
+
+
+# Twitter Stream
+GET     /twitter-stream/show             controllers.Twitter.showStream()
+GET     /twitter-stream/:track           controllers.Twitter.streamForKeyword(track)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file                    controllers.Assets.at(path="/public", file)

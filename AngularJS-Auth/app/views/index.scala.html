@@ -1,0 +1,43 @@
+  @()<!DOCTYPE html>
+<html>
+  <head>
+    <title>AngularJS + RequireJS + Play</title>
+      <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+    <script data-main="@routes.Assets.at("javascripts/app.js")" src="@routes.WebJarAssets.requirejs" type="text/javascript"></script>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  </head>
+  <body>
+    <div data-ng-controller="LoginCtrl" data-ng-switch="!!user.id" data-ng-cloak>
+      <div data-ng-switch-when="false">
+        <div class="alert alert-warning" data-ng-show="sessionExpired">
+          <strong>Session Expired!</strong>
+        </div>
+        <div class="alert" data-ng-show="error">
+          <pre>{{error | json}}</pre>
+        </div>
+        <form>
+          <legend>Please enter your credentials</legend>
+          <input type="text" placeholder="E-Mail" data-ng-model="credentials.email" required />
+          <input type="password" placeholder="Password" data-ng-model="credentials.password" required />
+          <button data-ng-click="login(credentials)">Log In</button>
+        </form>
+      </div>
+      <div data-ng-switch-when="true">
+        <h3>Welcome, {{user.name}}!</h3>
+
+        <p>
+          <a href="" data-ng-click="ping()">Execute Server Action</a>
+          <div data-ng-show="ok">Ok!</div>
+        </p>
+
+        <footer>
+          <small>
+            Logged in as {{user.email}} | Created | {{user.createdAt | date}} |
+            <a href="" data-ng-click="logout()">Log Out</a>
+          </small>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
