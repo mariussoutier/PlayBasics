@@ -94,7 +94,8 @@ trait Application extends Controller with Security {
 
   /**
    * Returns the current user's ID if a valid token is transmitted.
-   * Also sets the cookie for the case that...
+   * Also sets the cookie (useful in some edge cases).
+   * This action can be used by the route service.
    */
   def ping() = HasToken() { token => userId => implicit request =>
     User.findOneById (userId) map { user =>

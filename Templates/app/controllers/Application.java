@@ -39,7 +39,8 @@ public class Application extends Controller {
     final User user = User.forName("Musterbro");
     final List<User> users = new ArrayList<User>();
     users.add(user);
-    return ok(views.txt.usersExport.render(users, true));
+    String trimmedText = views.txt.usersExport.render(users, true).body().trim();
+    return ok(trimmedText);
   }
 
   public static Result showProfile() {
