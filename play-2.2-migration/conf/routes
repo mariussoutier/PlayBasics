@@ -1,0 +1,46 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                                controllers.Application.index
+
+
+## EssentialActions
+# ~~~~
+GET     /ea/time-elapsed/short           controllers.EssentialActions.short()
+GET     /ea/time-elapsed/short-async     controllers.EssentialActions.shortAsync()
+
+GET     /ea/token                        controllers.EssentialActions.withToken()
+GET     /ea/token-async                  controllers.EssentialActions.withTokenLongRunning()
+
+
+## ActionBuilders
+# ~~~~
+GET     /ab/time-elapsed/short           controllers.ActionBuilders.short()
+GET     /ab/time-elapsed/short-async     controllers.ActionBuilders.shortAsync()
+
+PUT     /ab/departments/:id              controllers.ActionBuilders.updateDepartment(id: Long)
+
+
+## Actions
+# ~~~~
+
+POST    /a/users/search/1                controllers.JsonActions.searchForUsersJson()
+POST    /a/users/search/2                controllers.JsonActions.searchForUsersJsonAction()
+
+POST    /a/users/search/3                controllers.FormActions.searchForUsers()
+POST    /a/users/search/4                controllers.FormActions.searchForUsersJson()
+
+
+## ActionComposition
+# ~~~~
+GET     /ac/time-elapsed/short           controllers.ActionComposition.short()
+GET     /ac/time-elapsed/short-async     controllers.ActionComposition.shortAsync()
+
+GET     /ac/time-elapsed/short/1         controllers.ActionComposition.elapsedBuilder()
+GET     /ac/time-elapsed/short-async/1   controllers.ActionComposition.elapsedBuilderAsync()
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
