@@ -19,11 +19,11 @@ Action.
   *or* if you want to add properties to the request (see `WrappedRequest`)
 * Use `Action` if you need the body and want more control than `ActionBuilder` gives you
 
-[[tutorial/WhichActionToChoose.png]]
+![EssentialAction vs Action](tutorial/WhichActionToChoose.png)
 
 ## ActionBuilding Internals
 
 Are you curious to learn more? This is an overview of how Actions are realy built, and how that
 differs from invoking an Action.
 
-[[tutorial/ActionBuilding.png]]
+![Action Building](tutorial/ActionBuilding.png)
