@@ -23,7 +23,7 @@ Action.
 
 ## ActionBuilding Internals
 
-Are you curious to learn more? This is an overview of how Actions are realy built, and how that
+Are you curious to learn more? This is an overview of how Actions are really built, and how that
 differs from invoking an Action.
 
 ![Action Building](tutorial/ActionBuilding.png)
