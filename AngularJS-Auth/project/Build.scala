@@ -10,9 +10,10 @@ object ApplicationBuild extends Build {
   val appDependencies = Seq(
     jdbc,
     anorm,
+    cache,
     "org.webjars" % "angularjs" % "1.0.7",
     "org.webjars" % "requirejs" % "2.1.1",
-    "org.webjars" % "webjars-play" % "2.1.0-1"
+    "org.webjars" %% "webjars-play" % "2.2.0"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
