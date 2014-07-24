@@ -32,6 +32,8 @@ lazy val AsyncScala = project.enablePlugins(PlayScala)
 // RoutesJava is left out because it's still on Play 2.0.4
 lazy val RoutesScala = project.enablePlugins(PlayScala)
 
+lazy val ActionComposition = project.enablePlugins(PlayScala)
+
 // The root project,
 // It is defined automatically, including the aggregation part; you'd only declare it to enable plugins on it
 //lazy val root = project.in(file(".")).aggregate(Angular, AngularAuth, AsyncScala, RoutesScala).enablePlugins(PlayScala)
