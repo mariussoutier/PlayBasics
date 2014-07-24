@@ -8,9 +8,9 @@ define(["angular"], function(angular) {
       $scope.loggedIn = false;
 
       $scope.login = function(credentials) {
-        playRoutes.controllers.Application.login().post(credentials).then(function(response) {
+        playRoutes.com.mariussoutier.example.ng.controllers.Application.login().post(credentials).then(function(response) {
           console.log("Received Token: " + response.data.token);
-          return playRoutes.controllers.Users.user(3).get(); // return promise so we can chain easily
+          return playRoutes.com.mariussoutier.example.ng.controllers.Users.user(3).get(); // return promise so we can chain easily
         }).then(function(response) {
           // Promise of Users.user(3).get() is resolved here
           $scope.loggedIn = true;

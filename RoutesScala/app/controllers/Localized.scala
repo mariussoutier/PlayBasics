@@ -9,7 +9,7 @@ case class LocalizedRequest[A](request: Request[A], lang: Lang) extends WrappedR
 trait Localized extends Controller {
 
   // The current language is inferred from this implicit method by the controller
-  override implicit def lang(implicit request: RequestHeader): Lang =
+  implicit def lang(implicit request: RequestHeader): Lang =
     langFromWrappedRequest.orElse(langFromHeader).getOrElse(defaultLang)
 
   def langFromWrappedRequest(implicit request: RequestHeader): Option[Lang] = request match {

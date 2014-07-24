@@ -72,6 +72,7 @@ define(["angular"], function(angular) {
       /**
        * Pings the server. When the request is not authorized, the $http interceptor should
        * log out the current user.
+       * When using routes, this is not necessary.
        */
       $scope.ping = function() {
         $http.get("/ping").then(function() {

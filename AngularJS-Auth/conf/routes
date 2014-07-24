@@ -17,12 +17,8 @@ GET    /ping                        controllers.Application.ping()
 GET    /my/user                     controllers.Users.myUserInfo()
 GET    /users/:id                   controllers.Users.getUser(id: Long)
 
-
-### Obtain require.js with built-in knowledge of how webjars resources can be resolved
-GET    /lib/require.js              controllers.WebJarAssets.requirejs
-
-### Enable www.WebJars.org based resources to be returned
-GET    /webjars/*file               controllers.WebJarAssets.at(file)
-
 ### Map static resources from the /public folder to the /assets URL path
-GET    /assets/*file               controllers.Assets.at(path="/public", file)
+GET    /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+# Reuse the routes from the Angular projects with the /ng prefix
+->  /ng   ng.Routes

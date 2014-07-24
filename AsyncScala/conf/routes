@@ -5,14 +5,18 @@
 # Home page
 #GET    /
 
-GET     /promises                        controllers.Promises.index
-GET     /promises/examples               controllers.Promises.examples
-GET     /promises/async                  controllers.Promises.asyncAction
+GET     /promises                        controllers.FuturesAndPromises.index
+GET     /promises/promises               controllers.FuturesAndPromises.blockingPromiseExample
+GET     /promises/futures                controllers.FuturesAndPromises.blockingFutureExample
+GET     /promises/async                  controllers.FuturesAndPromises.futuresCompose
 
+GET     /iteratees/enum                  controllers.Iteratees.enum()
+GET     /iteratees/enumInputStream       controllers.Iteratees.enumInputStream()
+GET     /iteratees/enumTransform         controllers.Iteratees.enumeratee()
 
 # Twitter Stream
-GET     /twitter-stream/show             controllers.Twitter.showStream()
-GET     /twitter-stream/:track           controllers.Twitter.streamForKeyword(track)
+#GET     /twitter-stream/show             controllers.Twitter.showStream()
+#GET     /twitter-stream/:track           controllers.Twitter.streamForKeyword(track)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                    controllers.Assets.at(path="/public", file)
+GET     /assets/*file                    controllers.Assets.versioned(path="/public", file: Asset)

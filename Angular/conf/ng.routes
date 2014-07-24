@@ -1,0 +1,16 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# Called ng.routes because it is reused by AngularJS-Auth and nameclashes must be avoided
+# ~~~~
+
+# Home page
+GET     /                           com.mariussoutier.example.ng.controllers.Application.index
+
+# JavaScript routes
+GET     /jsroutes.js                com.mariussoutier.example.ng.controllers.JavaScript.jsRoutes()
+# AJAX routes
+POST    /login                      com.mariussoutier.example.ng.controllers.Application.login()
+GET     /users/:id                  com.mariussoutier.example.ng.controllers.Users.user(id: Long)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

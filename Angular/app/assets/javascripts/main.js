@@ -1,19 +1,25 @@
 (function() {
   "use strict";
 
-  // Angular must be first
   requirejs.config({
-    priority: ["angular"]
-  });
-
-  // Define angular as a RequireJS module so it can be referenced in other defines
-  define("angular", ["webjars!angular.js"], function() {
-    return angular; // return the global var
-  });
-
-  // The same mechanism can be used for external dependencies
-  define("jsroutes", ["/jsroutes"], function() {
-    return jsRoutes; // global again; must match var name used on the server
+    shim: {
+      'jsRoutes': {
+        deps: [],
+        // it's not a RequireJS module, so we have to tell it what var is returned
+        exports: 'jsRoutes'
+      },
+      // Hopefully this all will not be necessary but can be fetched from WebJars in the future
+      'angular': {
+        deps: ['jquery'],
+        exports: 'angular'
+      }
+    },
+    paths: {
+      'requirejs': ['../lib/requirejs/require'],
+      'jquery': ['../lib/jquery/jquery'],
+      'angular': ['../lib/angularjs/angular'],
+      'jsRoutes': ['/jsroutes']
+    }
   });
 
   require(["angular", "./services/playRoutes", "./controllers/login"], function(a, b, login) {

@@ -2,9 +2,9 @@
 <html>
   <head>
     <title>AngularJS + RequireJS + Play</title>
-      <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-    <script data-main="@routes.Assets.at("javascripts/app.js")" src="@routes.WebJarAssets.requirejs" type="text/javascript"></script>
+      <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    <script data-main="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript" src="@routes.Assets.versioned("lib/requirejs/require.js")"></script>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
   </head>
   <body>

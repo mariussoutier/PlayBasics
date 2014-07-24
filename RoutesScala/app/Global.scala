@@ -9,7 +9,7 @@ import controllers.routes
 object Global extends GlobalSettings {
 
   // Taken from an example by James Roper, member of the Play team
-  override def onHandlerNotFound(request: RequestHeader): Future[SimpleResult] =
+  override def onHandlerNotFound(request: RequestHeader): Future[Result] =
     if (request.path.endsWith("/"))
       Future.successful(MovedPermanently(request.path.take(request.path.length - 1)))
     else

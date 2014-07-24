@@ -20,7 +20,7 @@ Playing around
 * The token is only valid for two minutes, so you can see what happens if you ping after that
   (this can be changed by setting `cache.expiration` in `conf/application.conf`)
 * Take a look at the various components
- * `app/assets/javascripts` - LoginCtrl and app.js
+ * `app/assets/javascripts` - LoginCtrl and main.js
  * `app/controllers` - the server side controllers written in Scala/Play
   * `Application.scala` - handles token, login, logout
   * `Users.scala` - retrieves the user data

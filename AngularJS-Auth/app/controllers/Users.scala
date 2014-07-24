@@ -1,15 +1,8 @@
 package controllers
 
-import play.api._
-import play.api.mvc._
-
-import play.api.cache._
-import play.api.libs.json._
-import play.api.data._
-import play.api.data.Forms._
-import play.api.Logger
-
 import models._
+import play.api.libs.json._
+import play.api.mvc._
 
 /** Access to users */
 trait Users extends Controller with Security {

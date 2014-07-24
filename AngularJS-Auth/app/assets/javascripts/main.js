@@ -2,19 +2,29 @@
   "use strict";
 
   requirejs.config({
-    shim : {
-      "webjars!angular-cookies.js" : ["angular"] // make angular available to ngCookies
+    shim: {
+      'jsRoutes': {
+        deps: [],
+        // it's not a RequireJS module, so we have to tell it what var is returned
+        exports: 'jsRoutes'
+      },
+      'angular': {
+        deps: ['jquery'],
+        exports: 'angular'
+      },
+      'angular-cookies': ['angular']
     },
-    priority: ["angular"] // Make sure angular is loaded first
+    paths: {
+      'requirejs': ['../lib/requirejs/require'],
+      'jquery': ['../lib/jquery/jquery'],
+      'angular': ['../lib/angularjs/angular'],
+      'angular-cookies': ['../lib/angularjs/angular-cookies'],
+      'jsRoutes': ['/ng/jsroutes']
+    }
   });
 
-  // This is just for convenience so we can use the shorter module name
-  define("angular", ["webjars!angular.js"], function() {
-    return angular; // return global var
-  });
-
-  require(["./controllers/login", "angular", "webjars!angular-cookies.js"],
-    function(login) {
+  require(["./controllers/login", "angular", "angular-cookies"],
+    function(login, angular) {
 
     var module = angular.module("my.app", ["ngCookies"]);
 
