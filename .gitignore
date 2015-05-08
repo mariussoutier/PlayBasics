@@ -1,7 +1,4 @@
-# Created by .ignore support plugin (hsz.mobi)
-
-### PlayFramework template
-# Ignore Play! working directory #
+### PlayFramework
 bin/
 /db
 .eclipse
