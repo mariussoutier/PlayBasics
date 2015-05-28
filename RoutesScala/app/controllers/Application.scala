@@ -15,6 +15,6 @@ object Application extends Controller {
   }
 
   def languages(implicit request: RequestHeader) =
-    Play.configuration.getString("application.langs").getOrElse("en").split(",")
+    Play.configuration.getStringSeq("play.i18n.langs").getOrElse(Seq("en"))
 
 }

@@ -35,6 +35,8 @@ trait Security { self: Controller =>
 /** General Application actions, mainly session management */
 trait Application extends Controller with Security {
 
+  import play.api.i18n.Messages.Implicits._
+
   lazy val CacheExpiration =
     app.configuration.getInt("cache.expiration").getOrElse(60 /*seconds*/ * 2 /* minutes */)
 

@@ -1,12 +1,11 @@
 package controllers
 
-import play.api._
-import play.api.mvc._
-import play.api.data.Forms._
-import play.api.data._
-import play.api.i18n._
+import javax.inject.Inject
 
-object Help extends Controller with Localized {
+import play.api.i18n._
+import play.api.mvc._
+
+class Help @Inject() (val messagesApi: MessagesApi) extends Controller with Localized with I18nSupport {
 
   def show(language: String) = ActionWithLanguage(language) { implicit request =>
     // Partially applied route so the app can fill in the language parameter

@@ -1,5 +1,5 @@
-import play.PlayImport.PlayKeys
+import play.sbt.routes.RoutesKeys
 
 name := "PlayBasics-RoutesScala"
 
-PlayKeys.routesImport += "extensions.Binders._"
+RoutesKeys.routesImport += "extensions.Binders._"

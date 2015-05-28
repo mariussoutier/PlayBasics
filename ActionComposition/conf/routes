@@ -17,20 +17,21 @@ GET     /ea/token-async                  controllers.EssentialActions.withTokenL
 
 ## ActionBuilders
 # ~~~~
-GET     /ab/time-elapsed/short           controllers.ActionBuilders.short()
-GET     /ab/time-elapsed/short-async     controllers.ActionBuilders.shortAsync()
+GET     /ab/time-elapsed/short           @controllers.ActionBuilders.short()
+GET     /ab/time-elapsed/short-async     @controllers.ActionBuilders.shortAsync()
+GET     /ab/time-elapsed/timed           @controllers.ActionBuilders.timed()
 
-PUT     /ab/departments/:id              controllers.ActionBuilders.updateDepartment(id: Long)
+PUT     /ab/departments/:id              @controllers.ActionBuilders.updateDepartment(id: Long)
 
 
 ## Actions
 # ~~~~
 
-POST    /a/users/search/1                controllers.JsonActions.searchForUsersJson()
-POST    /a/users/search/2                controllers.JsonActions.searchForUsersJsonAction()
+POST    /a/users/search/1                @controllers.JsonActions.searchForUsersJson()
+POST    /a/users/search/2                @controllers.JsonActions.searchForUsersJsonAction()
 
-POST    /a/users/search/3                controllers.FormActions.searchForUsers()
-POST    /a/users/search/4                controllers.FormActions.searchForUsersJson()
+POST    /a/users/search/3                @controllers.FormActions.searchForUsers()
+POST    /a/users/search/4                @controllers.FormActions.searchForUsersJson()
 
 
 ## ActionComposition

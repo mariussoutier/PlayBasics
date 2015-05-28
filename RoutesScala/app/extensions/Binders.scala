@@ -9,14 +9,13 @@ object Binders {
   type Lang = play.api.i18n.Lang
 
   implicit object LangQueryStringBindable extends QueryStringBindable[Lang] {
-    def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, Lang]] = params.get(key).flatMap(_.headOption).map { _ match {
-        case str: String if str.length == 5 && str.contains("-") => {
-          val components = str.split('-')
-          Right(new Lang(components(0), components(1)))
-        }
-        case str: String if (str.length == 2) => Right(new Lang(str))
-        case _ => Left("Cannot parse parameter '" + key + "' as Lang")
+    def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, Lang]] = params.get(key).flatMap(_.headOption).map {
+      case str: String if str.length == 5 && str.contains("-") => {
+        val components = str.split('-')
+        Right(new Lang(components(0), components(1)))
       }
+      case str: String if str.length == 2 => Right(new Lang(str))
+      case _ => Left("Cannot parse parameter '" + key + "' as Lang")
     }
 
     def unbind(key: String, value: Lang): String = key + "=" + value.code
@@ -32,7 +31,4 @@ object Binders {
     def unbind(key: String, value: Lang): String = value.code
   }
 
-  implicit def langJavascriptLitteral = new JavascriptLitteral[Lang] {
-    def to(value: Lang) = value.code
-  }
 }

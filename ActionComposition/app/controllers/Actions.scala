@@ -1,8 +1,11 @@
 package controllers
 
+import javax.inject.Inject
+
 import play.api.data.Forms._
 import play.api.data._
 import play.api.data.validation.ValidationError
+import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.json._
 import play.api.mvc._
 
@@ -10,7 +13,7 @@ import scala.concurrent.Future
 import scala.concurrent.Future.{successful => resolve}
 import scala.reflect.ClassTag
 
-object JsonActions extends Controller {
+class JsonActions @Inject() extends Controller {
 
  /** Helper that maps JsError errors to a JSON object */
   private def errToJson(errors: Seq[(JsPath, Seq[ValidationError])]): JsValue = {
@@ -75,7 +78,7 @@ object JsonActions extends Controller {
  * value we wanted to wrap. Let's try to build a generic version.
  */
 
-object FormActions extends Controller {
+class FormActions @Inject() (val messagesApi: MessagesApi) extends Controller with I18nSupport {
 
   /** This request takes any value, based on the form's type, and wraps it */
   case class FormRequest[T,A](formValue: T, request: Request[A]) extends WrappedRequest(request)
@@ -85,7 +88,7 @@ object FormActions extends Controller {
    * this with a structural type à la [({ type R[A] = FormRequest[T,A] })#R].
    * A more readable approach is to write a custom Action directly.
    */
-  case class FormAction[T,A](form: Form[T], bodyParser: BodyParser[A] = parse.anyContent)(block: FormRequest[T,A] => Future[Result])
+  class FormAction[T,A](form: Form[T], bodyParser: BodyParser[A] = parse.anyContent)(block: FormRequest[T,A] => Future[Result])
     extends Action[A] {
       def apply(request: Request[A]): Future[Result] = {
         form.bindFromRequest()(request).fold(
@@ -95,6 +98,11 @@ object FormActions extends Controller {
       }
       def parser = bodyParser
    }
+
+  object FormAction {
+    def apply[T,A](form: Form[T], bodyParser: BodyParser[A] = parse.anyContent)(block: FormRequest[T,A] => Future[Result]): Action[A] =
+      new FormAction(form, bodyParser)(block)()
+  }
 
   case class UserSearchFilter(name: Option[String], department: Option[String])
 
@@ -116,7 +124,7 @@ object FormActions extends Controller {
 
   /*
    * Also works when parsing binding the form to a JSON body.
-   * curl -H "Content-type: application/json" -X POST -d ' {"name":"John"}' http://localhost:9000/a/users/search/4
+   * curl -X POST -H "Content-type: application/json" -d ' {"name":"John"}' http://localhost:9000/a/users/search/4
    */
   def searchForUsersJson() = FormAction(userSearchFilterForm, parse.json) { request =>
     resolve(Ok(Json.obj("found" -> 1, "name" -> request.formValue.name)))

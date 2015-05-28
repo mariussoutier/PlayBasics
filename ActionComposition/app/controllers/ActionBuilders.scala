@@ -1,11 +1,15 @@
 package controllers
 
+import javax.inject._
+
 import models._
 import play.api.data.Forms._
 import play.api.data._
+import play.api.i18n._
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.mvc.Security.AuthenticatedBuilder
 import play.api.mvc._
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.concurrent.Future.{successful => resolve}
 
@@ -21,7 +25,7 @@ import scala.concurrent.Future.{successful => resolve}
  */
 
 
-object ActionBuilders extends Controller {
+class ActionBuilders @Inject() (val messagesApi: MessagesApi) extends Controller with I18nSupport {
 
  /**
   * Let's start with our easy example again that doesn't manipulate the request nor the result.
@@ -58,9 +62,35 @@ object ActionBuilders extends Controller {
     }
   }
 
-  /**
+  /*
    * Now let's see how we can use ActionBuilders to reduce boilerplate, by simplify the mapping of
    * form input to case classes.
+   */
+  case class TimedRequest[A](request: Request[A], startTime: Long = System.currentTimeMillis()) {
+    def timeElapsed = System.currentTimeMillis - startTime
+
+    def printTimeElapsed(): Unit = println("Elapsed time: %1d ms".format(timeElapsed))
+  }
+
+  object Timed extends ActionBuilder[TimedRequest] {
+    def invokeBlock[A](request: Request[A], block: (TimedRequest[A]) => Future[Result]) = {
+      val timedRequest = TimedRequest(request)
+      val res = block(timedRequest)
+      timedRequest.printTimeElapsed()
+      res
+    }
+  }
+
+  def timed() = Timed { request =>
+    Thread.sleep(3000)
+    Ok(
+      "This action took %1d seconds to complete.".format(request.timeElapsed / 1000)
+    )
+  }
+
+
+  /*
+   * And now a more complex example.
    */
 
   /** Adds the parsed object to the Request */
@@ -100,4 +130,14 @@ object ActionBuilders extends Controller {
     resolve(Ok(s"Received ${request.department.name}\n"))
   }
 
+  /*
+   * AuthenticatedBuilder
+   */
+
+  case class User(email: String)
+
+  /*def Authenticated[U](unauth: RequestHeader => Result) =
+    new AuthenticatedBuilder(request => Some(User("test")), unauth)
+
+  def Authenticated(userinfo: (RequestHeader) => Option[U]) = AuthenticatedBuilder {}*/
 }

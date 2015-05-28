@@ -10,9 +10,22 @@ name := "PlayBasics"
 
 organization in ThisBuild := "com.mariussoutier.example"
 
-version in ThisBuild := "2.3.2"
+version in ThisBuild := "2.4.0"
 
-scalaVersion in ThisBuild := "2.11.1"
+scalaVersion in ThisBuild := "2.11.6"
+
+scalacOptions in ThisBuild ++= Seq(
+  "-target:jvm-1.8",
+  "-encoding", "UTF-8",
+  "-deprecation", // warning and location for usages of deprecated APIs
+  "-feature", // warning and location for usages of features that should be imported explicitly
+  "-unchecked", // additional warnings where generated code depends on assumptions
+  "-Xlint", // recommended additional warnings
+  "-Ywarn-adapted-args", // Warn if an argument list is modified to match the receiver
+  "-Ywarn-value-discard", // Warn when non-Unit expression results are unused
+  "-Ywarn-inaccessible",
+  "-Ywarn-dead-code"
+)
 
 // -- Sub-projects --
 
@@ -37,3 +50,5 @@ lazy val ActionComposition = project.enablePlugins(PlayScala)
 // The root project,
 // It is defined automatically, including the aggregation part; you'd only declare it to enable plugins on it
 //lazy val root = project.in(file(".")).aggregate(Angular, AngularAuth, AsyncScala, RoutesScala).enablePlugins(PlayScala)
+
+routesGenerator in ThisBuild := InjectedRoutesGenerator
