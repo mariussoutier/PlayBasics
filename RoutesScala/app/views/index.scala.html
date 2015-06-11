@@ -1,6 +1,6 @@
-@(message: String)(implicit request: RequestHeader)
+@(message: String, languages: Seq[String])(implicit request: RequestHeader)
 
-@main("Welcome to Play 2.0") {
+@main("PlayBasics - Scala Routes") {
 
   <h2>Parameters</h2>
   <ul>
@@ -37,11 +37,11 @@
   <h2>Localized Routes</h2>
   <ul>
     <li class="nav-header">Language as String</li>
-  @for(language <- Application.languages) {
+  @for(language <- languages) {
     <li><a href="@routes.Help.show(language)">Help in @language</a></li>
   }
   <li class="nav-header">Lang Binder</li>
-  @for(language <- Application.languages) {
+  @for(language <- languages) {
     @defining(Lang(language)) { lang =>
       <li><a href="@routes.Faq.show(lang)">FAQ in @lang.code</a></li>
     }
