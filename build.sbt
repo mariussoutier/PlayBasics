@@ -10,7 +10,7 @@ name := "PlayBasics"
 
 organization in ThisBuild := "com.mariussoutier.example"
 
-version in ThisBuild := "2.4.0"
+version in ThisBuild := "2.4.1"
 
 scalaVersion in ThisBuild := "2.11.6"
 
@@ -50,5 +50,3 @@ lazy val ActionComposition = project.enablePlugins(PlayScala)
 // The root project,
 // It is defined automatically, including the aggregation part; you'd only declare it to enable plugins on it
 //lazy val root = project.in(file(".")).aggregate(Angular, AngularAuth, AsyncScala, RoutesScala).enablePlugins(PlayScala)
-
-routesGenerator in ThisBuild := InjectedRoutesGenerator
