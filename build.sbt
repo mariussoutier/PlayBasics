@@ -47,6 +47,8 @@ lazy val RoutesScala = project.enablePlugins(PlayScala)
 
 lazy val ActionComposition = project.enablePlugins(PlayScala)
 
+lazy val DependencyInjection = project
+
 // The root project,
 // It is defined automatically, including the aggregation part; you'd only declare it to enable plugins on it
 //lazy val root = project.in(file(".")).aggregate(Angular, AngularAuth, AsyncScala, RoutesScala).enablePlugins(PlayScala)
