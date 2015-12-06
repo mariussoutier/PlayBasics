@@ -12,3 +12,7 @@
 ## Actions
 
 * http://www.mariussoutier.com/blog/2013/09/17/playframework-2-2-action-building-action-composition/
+
+## Dependency Injection
+
+* http://mariussoutier.com/blog/2015/12/06/playframework-2-4-dependency-injection-di/

@@ -7,4 +7,4 @@ The `Shared` project contains an imaginary database client that you are trying t
 components. Both `Jsr330` and `CompileTime` projects show how to do that such that the client is instantiated, testable,
 and stopped on each application reload (in dev mode).
 
-The accompanying post can be found on my blog: http://mariussoutier.com/blog
+The accompanying post can be found on my blog: http://mariussoutier.com/blog/2015/12/06/playframework-2-4-dependency-injection-di/
