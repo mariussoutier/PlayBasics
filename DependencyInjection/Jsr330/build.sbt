@@ -2,4 +2,4 @@ name := "PlayBasics-DependencyInjection-Js330"
 
 routesGenerator := InjectedRoutesGenerator
 
-libraryDependencies += specs2
+libraryDependencies += "org.scalatestplus" %% "play" % "1.4.0-M4" % Test

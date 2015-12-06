@@ -17,8 +17,11 @@ trait DatabaseClientApi {
 
 // ServiceClient must extend the trait or a runtime exception will be thrown
 @Singleton
-class DatabaseClientDefaultImpl @Inject()(environment: Environment, configuration: Configuration,
-                                          applicationLifecycle: ApplicationLifecycle) extends DatabaseClientApi {
+class DatabaseClientDefaultImpl @Inject()(environment: Environment,
+                                          configuration: Configuration,
+                                          applicationLifecycle: ApplicationLifecycle)
+  extends DatabaseClientApi {
+
   // Instantiated client to our imaginary service
   lazy val databaseClient: DatabaseClient = {
     val client = environment.mode match {
@@ -36,8 +39,11 @@ class DatabaseClientDefaultImpl @Inject()(environment: Environment, configuratio
 
 
 @Singleton
-class DatabaseClientProvider @Inject()(environment: Environment, configuration: Configuration,
-                                       applicationLifecycle: ApplicationLifecycle) extends Provider[DatabaseClient] {
+class DatabaseClientProvider @Inject()(environment: Environment,
+                                       configuration: Configuration,
+                                       applicationLifecycle: ApplicationLifecycle)
+  extends Provider[DatabaseClient] {
+
   override def get(): DatabaseClient = {
     val client = environment.mode match {
       case Mode.Test =>

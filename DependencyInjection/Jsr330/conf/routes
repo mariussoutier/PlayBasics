@@ -1,1 +1,3 @@
-GET        /play        controllers.Application.index()
+GET        /                controllers.Application.index()
+GET        /play            controllers.Application.play()
+GET        /user/:id        controllers.Application.user(id: String)

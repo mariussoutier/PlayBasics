@@ -15,7 +15,7 @@ import scala.concurrent.ExecutionContext
  */
 class Application @Inject() (ws: WSClient, dbClient: DatabaseClientApi, implicit val ec: ExecutionContext) extends Controller {
 
-  // Application will be instantiated each time the route is called
+  // Application will be instantiated each time the app is reloaded
   println("Hi from Application!")
 
   def index() = Action {
