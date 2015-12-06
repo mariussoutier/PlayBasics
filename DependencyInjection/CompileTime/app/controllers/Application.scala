@@ -1,19 +1,13 @@
 package controllers
 
-import javax.inject.Inject
-
-import com.mariussoutier.playbasics.components.DatabaseClientApi
+import db.DatabaseClient
 import play.api.libs.json.Json
-import play.api.libs.ws._
+import play.api.libs.ws.WSClient
 import play.api.mvc.{Action, Controller}
 
 import scala.concurrent.ExecutionContext
 
-/**
- *
- * @param ws WSClient will get injected,
- */
-class Application @Inject() (ws: WSClient, dbClient: DatabaseClientApi, implicit val ec: ExecutionContext) extends Controller {
+class Application(ws: WSClient, databaseClient: DatabaseClient)(implicit val ec: ExecutionContext) extends Controller {
 
   // Application will be instantiated each time the route is called
   println("Hi from Application!")
@@ -29,6 +23,6 @@ class Application @Inject() (ws: WSClient, dbClient: DatabaseClientApi, implicit
   }
 
   def user(id: String) = Action.async {
-    dbClient.databaseClient.query(s"{id:$id}").map(user => Ok(Json.parse(user)))
+    databaseClient.query(s"{id:$id}").map(user => Ok(Json.parse(user)))
   }
 }

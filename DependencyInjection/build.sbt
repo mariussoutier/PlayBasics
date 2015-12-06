@@ -1,7 +1,9 @@
 name := "PlayBasics-DependencyInjection"
 
-lazy val Jsr330 = project.enablePlugins(PlayScala)
+lazy val Shared = project
+lazy val CompileTime = project.enablePlugins(PlayScala).dependsOn(Shared)
+lazy val Jsr330 = project.enablePlugins(PlayScala).dependsOn(Shared)
 
 libraryDependencies in ThisBuild ++= Seq(
-  ws
+  ws, filters
 )

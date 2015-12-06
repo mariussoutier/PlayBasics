@@ -1,1 +1,1 @@
-GET        /play        @controllers.Application.index()
+GET        /play        controllers.Application.index()
