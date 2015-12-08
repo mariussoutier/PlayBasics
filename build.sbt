@@ -10,9 +10,9 @@ name := "PlayBasics"
 
 organization in ThisBuild := "com.mariussoutier.example"
 
-version in ThisBuild := "2.4.1"
+version in ThisBuild := "2.4.4"
 
-scalaVersion in ThisBuild := "2.11.6"
+scalaVersion in ThisBuild := "2.11.7"
 
 scalacOptions in ThisBuild ++= Seq(
   "-target:jvm-1.8",
