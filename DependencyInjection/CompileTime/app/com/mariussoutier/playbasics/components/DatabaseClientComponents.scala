@@ -11,7 +11,7 @@ import scala.concurrent.Future
  * Plugins have been replaced with components. Here we wrap an imaginary service.
  */
 trait DatabaseClientComponents {
-  // These will be filled by Play's built-in components
+  // These will be filled by Play's built-in components; should be `def` to avoid initialization problems
   def environment: Environment
   def configuration: Configuration
   def applicationLifecycle: ApplicationLifecycle
