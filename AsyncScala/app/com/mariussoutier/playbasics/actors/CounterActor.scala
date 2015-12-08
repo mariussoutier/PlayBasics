@@ -1,4 +1,4 @@
-package actors
+package com.mariussoutier.playbasics.actors
 
 import akka.actor.{Props, Actor, ActorLogging}
 

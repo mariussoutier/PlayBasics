@@ -2,21 +2,24 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-#GET    /
+# Futures and Promises
+GET     /promises                        com.mariussoutier.playbasics.controllers.FuturesAndPromises.index
+GET     /promises/promises               com.mariussoutier.playbasics.controllers.FuturesAndPromises.blockingPromiseExample
+GET     /promises/futures                com.mariussoutier.playbasics.controllers.FuturesAndPromises.blockingFutureExample
+GET     /promises/async                  com.mariussoutier.playbasics.controllers.FuturesAndPromises.futuresCompose
 
-GET     /promises                        controllers.FuturesAndPromises.index
-GET     /promises/promises               controllers.FuturesAndPromises.blockingPromiseExample
-GET     /promises/futures                controllers.FuturesAndPromises.blockingFutureExample
-GET     /promises/async                  controllers.FuturesAndPromises.futuresCompose
-
-GET     /iteratees/enum                  controllers.Iteratees.enum()
-GET     /iteratees/enumInputStream       controllers.Iteratees.enumInputStream()
-GET     /iteratees/enumTransform         controllers.Iteratees.enumeratee()
+# Iteratees
+GET     /iteratees/enum                  com.mariussoutier.playbasics.controllers.Iteratees.enum()
+GET     /iteratees/enumInputStream       com.mariussoutier.playbasics.controllers.Iteratees.enumInputStream()
+GET     /iteratees/enumTransform         com.mariussoutier.playbasics.controllers.Iteratees.enumeratee()
 
 # Twitter Stream
-#GET     /twitter-stream/show             controllers.Twitter.showStream()
-#GET     /twitter-stream/:track           controllers.Twitter.streamForKeyword(track)
+GET     /twitter-stream/show             com.mariussoutier.playbasics.controllers.Twitter.showStream()
+GET     /twitter-stream/:track           com.mariussoutier.playbasics.controllers.Twitter.streamForKeyword(track)
+
+# Akka Example
+GET     /akka/compute                    com.mariussoutier.playbasics.controllers.AkkaExample.computation
+GET     /akka/state                      com.mariussoutier.playbasics.controllers.AkkaExample.askScheduledState
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                    controllers.Assets.versioned(path="/public", file: Asset)

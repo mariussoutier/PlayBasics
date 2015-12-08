@@ -1,13 +1,11 @@
-package controllers
+package com.mariussoutier.playbasics.controllers
 
+import play.api.Play.current
 import play.api.libs.ws.WS
 import play.api.mvc._
-import play.api.Play.current
-// Always import Play's EC
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
-import scala.concurrent.{Await, Future, Promise}
 import scala.concurrent.duration._
+import scala.concurrent.{ExecutionContext, Await, Future, Promise}
 
 /**
  * 1. Futures and Promises
@@ -15,14 +13,14 @@ import scala.concurrent.duration._
  * exposes a future. The user only works on the future, defining operations on it that will be executed eventually, i.e.
  * when the underlying promise completes.
  *
- * Or to use the analogy by Johan Andren:
+ * Or to use the analogy by Johan Andren (@apnylle):
  * Father: I promise you a pony when you are old enough. (Promise[Pony])
  * Child: When I will get a pony in the future, I will ride on it. (Future[Pony].map(pony => pony.ride))
  */
-object FuturesAndPromises extends Controller {
+class FuturesAndPromises(implicit val ec: ExecutionContext) extends Controller {
 
   def index = Action {
-    Ok(views.html.promises())
+    Ok(com.mariussoutier.playbasics.views.html.promises())
   }
 
   def blockingPromiseExample = Action {
