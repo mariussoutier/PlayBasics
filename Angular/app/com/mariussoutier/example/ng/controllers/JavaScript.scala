@@ -3,7 +3,7 @@ package com.mariussoutier.example.ng.controllers
 import play.api.mvc.{Action, Controller}
 import play.api.routing.JavaScriptReverseRouter
 
-object JavaScript extends Controller {
+class JavaScript extends Controller {
 
   /*(for {
     routes <- Play.current.routes
