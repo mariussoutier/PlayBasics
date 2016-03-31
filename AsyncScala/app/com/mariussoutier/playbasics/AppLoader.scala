@@ -3,7 +3,7 @@ package com.mariussoutier.playbasics
 import com.mariussoutier.playbasics.actors.CounterActor
 import com.mariussoutier.playbasics.controllers.{AkkaExample, FuturesAndPromises, Iteratees, Twitter}
 import play.api.ApplicationLoader.Context
-import play.api.libs.ws.ning.NingWSComponents
+import play.api.libs.ws.ahc.AhcWSComponents
 import play.api.mvc.EssentialFilter
 import play.api.routing.Router
 import play.api.{Application, ApplicationLoader, BuiltInComponentsFromContext}
@@ -23,7 +23,7 @@ class AppLoader extends ApplicationLoader {
 /**
  * Helper class to mix in components and instantiate controllers and the router.
  */
-class AppComponents(context: Context) extends BuiltInComponentsFromContext(context) with NingWSComponents {
+class AppComponents(context: Context) extends BuiltInComponentsFromContext(context) with AhcWSComponents {
 
   private def selectMessage =
     if (Random.nextBoolean()) CounterActor.Increase else CounterActor.Decrease
@@ -53,7 +53,7 @@ class AppComponents(context: Context) extends BuiltInComponentsFromContext(conte
 
   val gzipFilter = new GzipFilter(shouldGzip =
     (request, response) => {
-      val contentType = response.headers.get("Content-Type")
+      val contentType = response.header.headers.get("Content-Type")
       contentType.exists(_.startsWith("text/html"))
     })
 

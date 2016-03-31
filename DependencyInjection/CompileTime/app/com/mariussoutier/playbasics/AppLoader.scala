@@ -2,10 +2,11 @@ package com.mariussoutier.playbasics
 
 import com.mariussoutier.playbasics.components.DatabaseClientComponents
 import play.api.ApplicationLoader.Context
+import play.api.libs.ws.ahc.AhcWSComponents
 import play.api.libs.ws.ning.NingWSComponents
 import play.api.mvc.EssentialFilter
 import play.api.routing.Router
-import play.api.{Application, ApplicationLoader, BuiltInComponentsFromContext, Logger}
+import play.api._
 import play.filters.gzip.GzipFilter
 import router.Routes
 
@@ -14,7 +15,7 @@ import router.Routes
  */
 class AppLoader extends ApplicationLoader {
   override def load(context: ApplicationLoader.Context): Application = {
-    Logger.configure(context.environment)
+    LoggerConfigurator(context.environment.classLoader).foreach(_.configure(context.environment))
     new AppComponents(context).application
   }
 }
@@ -24,7 +25,7 @@ class AppLoader extends ApplicationLoader {
  */
 class AppComponents(context: Context)
   extends BuiltInComponentsFromContext(context)
-  with NingWSComponents
+  with AhcWSComponents
   with DatabaseClientComponents {
 
   implicit val ec = actorSystem.dispatcher
@@ -37,7 +38,7 @@ class AppComponents(context: Context)
   // Filters are also handled by this helper
   val gzipFilter = new GzipFilter(shouldGzip =
     (request, response) => {
-      val contentType = response.headers.get("Content-Type")
+      val contentType = response.header.headers.get("Content-Type")
       contentType.exists(_.startsWith("text/html"))
     })
 

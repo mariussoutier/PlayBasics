@@ -14,7 +14,7 @@ import scala.concurrent.Future.{successful => resolve}
  * Let's see how we can re-write the EssentialActions to normal Actions.
  */
 
-object ActionComposition extends Controller {
+class ActionComposition extends Controller {
 
   /** Our basic example, now as an Action */
   case class TimeElapsed[A](action: Action[A]) extends Action[A] {

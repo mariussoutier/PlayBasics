@@ -1,7 +1,6 @@
-package controllers
+package com.mariussoutier.playbasics.controllers
 
 import javax.inject.Inject
-
 import play.api.i18n._
 import play.api.mvc._
 

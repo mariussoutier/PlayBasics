@@ -10,7 +10,7 @@ name := "PlayBasics"
 
 organization in ThisBuild := "com.mariussoutier.example"
 
-version in ThisBuild := "2.4.4"
+version in ThisBuild := "2.5.1"
 
 scalaVersion in ThisBuild := "2.11.7"
 

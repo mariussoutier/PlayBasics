@@ -4,6 +4,7 @@ import models._
 import models.json._
 import play.api.libs.iteratee.Done
 import play.api.libs.json._
+import play.api.libs.streams.Accumulator
 import play.api.mvc._
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -22,7 +23,7 @@ import scala.concurrent.Future.{successful => resolve}
  * However check first if you can solve the problem at the EssentialFilter level.
  */
 
-object EssentialActions extends Controller {
+class EssentialActions extends Controller {
 
   /* Let's start with a simple example where you just wrap any other action, be it essential or not */
 
@@ -66,9 +67,9 @@ object EssentialActions extends Controller {
   def HasToken(action: String => EssentialAction): EssentialAction = EssentialAction { requestHeader =>
     val maybeToken = requestHeader.headers.get("X-SECRET-TOKEN")
     maybeToken map { token =>
-      action(token)(requestHeader) // apply requestHeader to EssentialAction produces the Iteratee[Array[Byte], Result]
+      action(token)(requestHeader) // apply requestHeader to EssentialAction produces the Accumulator[ByteString, Result]
     } getOrElse {
-      Done(Unauthorized("401 No Security Token\n")) // 'Done' means the Iteratee has completed its computations
+      Accumulator.done(Unauthorized("401 No Security Token\n")) // 'Done' means the strem has completed its computations
     }
   }
 
@@ -85,9 +86,9 @@ object EssentialActions extends Controller {
           if (permissions.contains(user.permission)) { // The actual permissions check
             action(user)(requestHeader)  // Execute only if permissions match
           } else {
-            Done[Array[Byte], Result](Forbidden) // Must be typed because the compiler cannot infer
+            Accumulator.done(Forbidden) // Must be typed because the compiler cannot infer
           }
-        } getOrElse Done[Array[Byte], Result](NotFound) // Must be typed because the compiler cannot infer
+        } getOrElse Accumulator.done(NotFound) // Must be typed because the compiler cannot infer
       }
     }
 
@@ -129,7 +130,7 @@ object EssentialActions extends Controller {
       if (currentUser.id.exists(_ == id)) {
         action(currentUser)(requestHeader)
       } else {
-        Done(Forbidden("403 Not allowed to access this user.\n"))
+        Accumulator.done(Forbidden("403 Not allowed to access this user.\n"))
       }
     }
   }
@@ -168,7 +169,7 @@ object EssentialActions extends Controller {
    */
   def deleteWithEssentials(id: Long) = HasPermission(UserPermission) { _ =>
     EssentialAction { _ =>
-      Done(Ok(s"Deleted $id\n"))
+      Accumulator.done(Ok(s"Deleted $id\n"))
     }
   }
 
@@ -183,9 +184,9 @@ object EssentialActions extends Controller {
           if (user.department == inventory.department) {
             action(user)(inventory)(requestHeader)
           } else {
-            Done[Array[Byte], Result](Forbidden)
+            Accumulator.done(Forbidden)
           }
-        }.getOrElse(Done[Array[Byte], Result](NotFound))
+        }.getOrElse(Accumulator.done(NotFound))
       }
     }
 

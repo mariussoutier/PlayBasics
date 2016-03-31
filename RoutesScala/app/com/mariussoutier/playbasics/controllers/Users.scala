@@ -1,4 +1,4 @@
-package controllers
+package com.mariussoutier.playbasics.controllers
 
 import play.api.mvc._
 
