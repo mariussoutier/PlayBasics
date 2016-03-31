@@ -4,9 +4,9 @@ AngularJS + Play + Security
 Instructions
 ------------
 
-* Install play 2.1.x
+* Install sbt or activator
  * Download from www.playframework.org
- * Or on a Mac use `brew install play`
+ * Or on a Mac use `brew install sbt`
 * `cd` into the directory
 * Execute `play update ~run`
 * Head to [http://localhost:9000](http://localhost:9000)

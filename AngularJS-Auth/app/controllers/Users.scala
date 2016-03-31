@@ -1,11 +1,16 @@
 package controllers
 
+import com.google.inject.Inject
 import models._
+import play.api.cache.CacheApi
+import play.api.{Environment, Configuration}
 import play.api.libs.json._
 import play.api.mvc._
 
 /** Access to users */
-trait Users extends Controller with Security {
+class Users @Inject() (val configuration: Configuration, val environment: Environment, val cache: CacheApi)
+  extends Controller
+  with Security {
 
   /** Example for token protected access */
   def myUserInfo() = HasToken() { _ => currentId => implicit request =>
@@ -31,5 +36,3 @@ trait Users extends Controller with Security {
   }
 
 }
-
-object Users extends Users

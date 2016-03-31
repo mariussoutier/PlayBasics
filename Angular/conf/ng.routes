@@ -4,12 +4,12 @@
 # ~~~~
 
 # Home page
-GET     /                           com.mariussoutier.example.ng.controllers.Application.index
+GET     /                           com.mariussoutier.example.ng.controllers.ApplicationNg.index
 
 # JavaScript routes
 GET     /jsroutes.js                com.mariussoutier.example.ng.controllers.JavaScript.jsRoutes()
 # AJAX routes
-POST    /login                      com.mariussoutier.example.ng.controllers.Application.login()
+POST    /login                      com.mariussoutier.example.ng.controllers.ApplicationNg.login()
 GET     /users/:id                  com.mariussoutier.example.ng.controllers.Users.user(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path

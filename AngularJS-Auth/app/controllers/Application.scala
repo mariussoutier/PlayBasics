@@ -1,45 +1,25 @@
 package controllers
 
+import com.google.inject.Inject
 import models._
 import play.api.cache._
 import play.api.data.Forms._
 import play.api.data._
+import play.api.i18n.{I18nComponents, Messages}
 import play.api.libs.json._
 import play.api.mvc._
-
-/**
- * Security actions that should be used by all controllers that need to protect their actions.
- * Can be composed to fine-tune access control.
- */
-trait Security { self: Controller =>
-
-  implicit val app: play.api.Application = play.api.Play.current
-
-  val AuthTokenHeader = "X-XSRF-TOKEN"
-  val AuthTokenCookieKey = "XSRF-TOKEN"
-  val AuthTokenUrlKey = "auth"
-
-  /** Checks that a token is either in the header or in the query string */
-  def HasToken[A](p: BodyParser[A] = parse.anyContent)(f: String => Long => Request[A] => Result): Action[A] =
-    Action(p) { implicit request =>
-      val maybeToken = request.headers.get(AuthTokenHeader).orElse(request.getQueryString(AuthTokenUrlKey))
-      maybeToken flatMap { token =>
-        Cache.getAs[Long](token) map { userid =>
-          f(token)(userid)(request)
-        }
-      } getOrElse Unauthorized(Json.obj("err" -> "No Token"))
-    }
-
-}
+import play.api.{Configuration, Environment}
 
 /** General Application actions, mainly session management */
-trait Application extends Controller with Security {
+class Application @Inject() (val configuration: Configuration, val environment: Environment, val cache: CacheApi)
+  extends Controller
+  with Security
+  with I18nComponents {
 
-  import play.api.i18n.Messages.Implicits._
+  import scala.concurrent.duration._
 
   lazy val CacheExpiration =
-    app.configuration.getInt("cache.expiration").getOrElse(60 /*seconds*/ * 2 /* minutes */)
-
+    configuration.getInt("cache.expiration").getOrElse(60 /*seconds*/ * 2 /* minutes */).seconds
 
   /** Returns the index page */
   def index = Action {
@@ -57,18 +37,19 @@ trait Application extends Controller with Security {
 
   implicit class ResultWithToken(result: Result) {
     def withToken(token: (String, Long)): Result = {
-      Cache.set(token._1, token._2, CacheExpiration)
+      cache.set(token._1, token._2, CacheExpiration)
       result.withCookies(Cookie(AuthTokenCookieKey, token._1, None, httpOnly = false))
     }
 
     def discardingToken(token: String): Result = {
-      Cache.remove(token)
+      cache.remove(token)
       result.discardingCookies(DiscardingCookie(name = AuthTokenCookieKey))
     }
   }
 
   /** Check credentials, generate token and serve it back as auth token in a Cookie */
   def login = Action(parse.json) { implicit request =>
+    implicit val messages = Messages(request2lang, messagesApi)
     loginForm.bind(request.body).fold( // Bind JSON body to form values
       formErrors => BadRequest(Json.obj("err" -> formErrors.errorsAsJson)),
       loginData => {
@@ -102,5 +83,3 @@ trait Application extends Controller with Security {
   }
 
 }
-
-object Application extends Application

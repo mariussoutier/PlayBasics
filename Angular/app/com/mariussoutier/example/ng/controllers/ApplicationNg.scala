@@ -3,7 +3,7 @@ package com.mariussoutier.example.ng.controllers
 import play.api.libs.json._
 import play.api.mvc._
 
-class Application extends Controller {
+class ApplicationNg extends Controller {
 
   def index = Action {
     Ok(views.html.index())
