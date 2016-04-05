@@ -54,12 +54,12 @@ class Twitter(configuration: Configuration, ws: WSAPI)(implicit val ec: Executio
   }
 
   val consumerKey = ConsumerKey(
-    configuration.getString("twitter.consumer.key").getOrElse("???"),
-    configuration.getString("twitter.consumer.secret").getOrElse("???")
+    configuration.getString("twitter.consumer.key").get,
+    configuration.getString("twitter.consumer.secret").get
   )
   val accessToken = RequestToken(
-    configuration.getString("twitter.token.key").getOrElse("???"),
-    configuration.getString("twitter.token.secret").getOrElse("???")
+    configuration.getString("twitter.token.key").get,
+    configuration.getString("twitter.token.secret").get
   )
 
   def streamForKeyword(track: String) = Action.async { request =>
