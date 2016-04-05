@@ -8,18 +8,23 @@ GET     /promises/promises               com.mariussoutier.playbasics.controller
 GET     /promises/futures                com.mariussoutier.playbasics.controllers.FuturesAndPromises.blockingFutureExample
 GET     /promises/async                  com.mariussoutier.playbasics.controllers.FuturesAndPromises.futuresCompose
 
-# Iteratees
+# Iteratees - deprecated
 GET     /iteratees/enum                  com.mariussoutier.playbasics.controllers.Iteratees.enum()
 GET     /iteratees/enumInputStream       com.mariussoutier.playbasics.controllers.Iteratees.enumInputStream()
 GET     /iteratees/enumTransform         com.mariussoutier.playbasics.controllers.Iteratees.enumeratee()
 
 # Twitter Stream
-GET     /twitter-stream/show             com.mariussoutier.playbasics.controllers.Twitter.showStream()
-GET     /twitter-stream/:track           com.mariussoutier.playbasics.controllers.Twitter.streamForKeyword(track)
+GET     /twitter-stream/show             com.mariussoutier.playbasics.controllers.TwitterStreams.showStream()
+GET     /twitter-stream/:track           com.mariussoutier.playbasics.controllers.TwitterStreams.streamForKeyword(track)
 
 # Akka Example
 GET     /akka/compute                    com.mariussoutier.playbasics.controllers.AkkaExample.computation
 GET     /akka/state                      com.mariussoutier.playbasics.controllers.AkkaExample.askScheduledState
+
+# Akka Streams
+
+GET     /streams/enum                         com.mariussoutier.playbasics.controllers.StreamsController.enum()
+GET     /streams/file                         com.mariussoutier.playbasics.controllers.StreamsController.streamFile()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                    controllers.Assets.versioned(path="/public", file: Asset)

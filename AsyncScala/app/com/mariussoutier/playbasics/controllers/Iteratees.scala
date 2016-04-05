@@ -9,8 +9,7 @@ import play.api.{Configuration, Environment}
 import scala.concurrent.ExecutionContext
 
 // 2. Iteratees process chunks of data
-// Largely TODO
-// Iteratees are no longer the primary streaming mechanism in Play
+// Changed in 2.5: Iteratees are no longer the primary streaming mechanism in Play
 class Iteratees(environment: Environment)(implicit val ec: ExecutionContext) extends Controller {
 
   def index = Action {

@@ -10,9 +10,9 @@
 
   <ul id="tweets"></ul>
 
-  @*helper.javascriptRouter("jsRoutes")(
-    routes.javascript.Twitter.streamForKeyword
-  )*@
+  @helper.javascriptRouter("jsRoutes")(
+    com.mariussoutier.playbasics.controllers.routes.javascript.TwitterStreams.streamForKeyword
+  )
 
   <script type="text/javascript">
   $(function() {
@@ -24,7 +24,7 @@
         source.close();
 
       var track = $("#track").val();
-      @*source = new EventSource(jsRoutes.controllers.Twitter.streamForKeyword(track).url);*@
+      source = new EventSource(jsRoutes.com.mariussoutier.playbasics.controllers.TwitterStreams.streamForKeyword(track).url);
 
       source.onmessage = function(e) {
         var tweet = jQuery.parseJSON(e.data);

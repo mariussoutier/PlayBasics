@@ -1,7 +1,7 @@
 package com.mariussoutier.playbasics
 
 import com.mariussoutier.playbasics.actors.CounterActor
-import com.mariussoutier.playbasics.controllers.{AkkaExample, FuturesAndPromises, Iteratees, Twitter}
+import com.mariussoutier.playbasics.controllers._
 import play.api.ApplicationLoader.Context
 import play.api.libs.ws.ahc.AhcWSComponents
 import play.api.mvc.EssentialFilter
@@ -38,8 +38,9 @@ class AppComponents(context: Context) extends BuiltInComponentsFromContext(conte
 
   lazy val futuresController = new FuturesAndPromises
   lazy val iterateesController = new Iteratees(environment)
-  lazy val twitterController = new Twitter(configuration, wsApi)
+  lazy val twitterController = new TwitterStreams(configuration, wsApi)
   lazy val akkaExampleController = new AkkaExample(counterActor, actorSystem)
+  lazy val streamsController = new StreamsController
   lazy val assets = new _root_.controllers.Assets(httpErrorHandler)
 
   override def router: Router = new _root_.router.Routes(
@@ -48,6 +49,7 @@ class AppComponents(context: Context) extends BuiltInComponentsFromContext(conte
     iterateesController,
     twitterController,
     akkaExampleController,
+    streamsController,
     assets
   )
 

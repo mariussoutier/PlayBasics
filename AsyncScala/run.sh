@@ -1,2 +1,2 @@
 #!/bin/sh
-cd .. && sbt ";project AsyncScala;~run"
+sbt -Dconfig.file="AsyncScala/conf/dev.conf" ";project AsyncScala;~run"
