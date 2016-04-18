@@ -12,7 +12,7 @@ organization in ThisBuild := "com.mariussoutier.example"
 
 version in ThisBuild := "2.5.2"
 
-scalaVersion in ThisBuild := "2.11.7"
+scalaVersion in ThisBuild := "2.11.8"
 
 scalacOptions in ThisBuild ++= Seq(
   "-target:jvm-1.8",
