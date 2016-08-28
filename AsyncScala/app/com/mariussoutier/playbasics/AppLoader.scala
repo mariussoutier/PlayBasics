@@ -55,8 +55,7 @@ class AppComponents(context: Context) extends BuiltInComponentsFromContext(conte
 
   val gzipFilter = new GzipFilter(shouldGzip =
     (request, response) => {
-      val contentType = response.header.headers.get("Content-Type")
-      contentType.exists(_.startsWith("text/html"))
+      response.body.contentType.exists(_.startsWith("text/html"))
     })
 
   override lazy val httpFilters: Seq[EssentialFilter] = Seq(gzipFilter)
