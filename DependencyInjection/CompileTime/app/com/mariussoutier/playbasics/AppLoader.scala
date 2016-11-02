@@ -33,7 +33,10 @@ class AppComponents(context: Context)
   lazy val applicationController = new controllers.Application(wsClient, databaseClient)
   lazy val assets = new controllers.Assets(httpErrorHandler)
 
-  override def router: Router = new Routes(httpErrorHandler, applicationController)
+  override def router: Router = new Routes(
+    httpErrorHandler,
+    applicationController
+  ).withPrefix(httpConfiguration.context) // set prefix via play.http.context in application.conf
 
   // Filters are also handled by this helper
   val gzipFilter = new GzipFilter(shouldGzip =
